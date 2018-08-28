@@ -15,7 +15,7 @@ class Engine:
         self.__types = {
             'SELECT': Select(),
         }
-        self.__db = Database("TEST_DB", "../../files/metadata.txt")
+        self.__db = Database("TEST_DB", "../sample-files/metadata.txt")
         self.__history = []
         self.__raw_input = ""
         self.__queries = []
