@@ -62,7 +62,7 @@ class Table:
     def load(self):
         with open("../sample-files/" + self.__name + '.csv') as file:
             for line in file.readlines():
-                row = tuple([int(x) for x in line.strip().split(',')])
+                row = tuple([int(x.strip().strip('"')) for x in line.strip().split(',')])
                 self.__rows.append(row)
                 idx = 0
                 for field in self.__fields:

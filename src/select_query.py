@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import sys
+import collections
 import sqlparse
 import prettytable
 
@@ -13,7 +14,7 @@ class Select:
     def __init__(self):
         self.__cols = []
         self.__distinct_cols = []
-        self.__agg_functions = {}
+        self.__agg_functions = collections.OrderedDict()
         self.__join = False
         self.__join_cols = []
         self.__tables = []
@@ -266,7 +267,7 @@ class Select:
             self.__response_table.set_rows(self.__query_table.get_rows())
         #print(self.__response_table.get_rows())
 
-        if len(self.__cols) == 0:
+        if len(self.__cols) == 0 and len(self.__agg_functions) == 0:
             for field in self.__query_table.get_fields():
                 self.__cols.append(field)
         if (self.__join and self.__join_cols[0][1] in self.__cols):
@@ -284,7 +285,7 @@ class Select:
     def __clean__(self):
         self.__cols = []
         self.__distinct_cols = []
-        self.__agg_functions = {}
+        self.__agg_functions = collections.OrderedDict()
         self.__tables = []
         self.__conds = []
         self.__cond_conjunctions = []

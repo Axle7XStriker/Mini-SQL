@@ -22,7 +22,7 @@ class Database:
     def load_metadata(self):
         with open(self.__metadata_file) as file:
             content = [x.strip() for x in file.readlines()]
-            print(content)      # Check working 
+            #print(content)      # Check working 
             i = 0
             while i < len(content):
                 if content[i] == '<begin_table>':
