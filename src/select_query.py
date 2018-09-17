@@ -249,7 +249,11 @@ class Select:
             print(self.__error_messages[1064])
             return 
         elif len(self.__tables) == 1:
-            self.__query_table = db.get_table(str(self.__tables[0]))
+            if not db.has_table(str(self.__tables[0])):
+                print(self.__error_messages[1146])
+                return
+            else :
+                self.__query_table = db.get_table(str(self.__tables[0]))
         else :
             for table in self.__tables:
                 if not db.has_table(str(table)):
@@ -267,7 +271,7 @@ class Select:
             self.__response_table.set_rows(self.__query_table.get_rows())
         #print(self.__response_table.get_rows())
 
-        if len(self.__cols) == 0 and len(self.__agg_functions) == 0:
+        if len(self.__distinct_cols) == 0 and len(self.__cols) == 0 and len(self.__agg_functions) == 0:
             for field in self.__query_table.get_fields():
                 self.__cols.append(field)
         if (self.__join and self.__join_cols[0][1] in self.__cols):
